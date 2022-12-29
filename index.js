@@ -6,7 +6,9 @@ import User from "./Server/routes/UserRoute.js";
 import Student from "./Server/routes/StudentRoute.js";
 
 const app = express();
-dotenv.config();
+dotenv.config({
+  path: "./config.env",
+});
 app.use(cors());
 connectDB();
 
@@ -20,16 +22,16 @@ app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
 });
 
-app.get('/', (req, res) => {
-    res.send('API is healthy...')
-})
+app.get("/", (req, res) => {
+  res.send("API is healthy...");
+});
 
 app.use("/api/user", User);
 app.use("/api/student", Student);
 
 app.use("*", (req, res) => {
-    res.status(404).json({
-      status: 404,
-      message: "Page Not Found! Please enter a valid URL to proceed",
-    });
+  res.status(404).json({
+    status: 404,
+    message: "Page Not Found! Please enter a valid URL to proceed",
   });
+});
